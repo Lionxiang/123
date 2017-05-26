@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+<script>
+var gps;
+window.onload = function() {
+	if( navigator.geolocation ) {
+		alert("支援GPS..");
+		gps = navigator.geolocation ; 
+	  gps.getCurrentPosition( geoYes, geoNo );
+      //gps.watchPosition( geoYes, geoNo );
+	}
+	else
+		alert("不支援GPS..");
+};
+
+function geoYes( evt ) {
+  console.log( evt );
+  var str="緯度:" + evt.coords.latitude + "<br>經度:" + evt.coords.longitude + "<br>精確度:" + evt.coords.accuracy;
+  //alert(str);
+  document.getElementById("posStr").innerHTML = str;
+
+  var nowPos =  {lat: evt.coords.latitude, lng: evt.coords.longitude };
+	mapObj.setCenter( nowPos );
+	marker.setPosition( nowPos ); 
+}
+
+function geoNo( evt ) {
+	alert("GPS失敗!");
+}
+
+var wid;
+function watchGPS() {
+  wid = gps.watchPosition( geoYes, geoNo );
+}
+
+function stopGPS() {
+  gps.clearWatch( wid );
+}
+</script>
+  </head>
+  <body>
+  <h1>豆腐的美食地圖</h1>
+    <p id="posStr">位置資訊..</p>
+  <button onclick="goPos();">Go</button>
+  <button onclick="watchGPS();">Play</button>
+  <button onclick="stopGPS();">Stop</button>
+    <div id="map"></div>
+    <script>
+var pid;
+function goPos() {
+	mapObj.setCenter(  {lat: 22.99712, lng: 120.21040 }  );
+	marker.setPosition( {lat: 22.99712, lng: 120.21040 }  );
+	pid = setInterval( move2, 500);
+}
+
+function move2() {
+	//console.log(pos2);
+	pos2.lng = pos2.lng + 0.01;
+	marker2.setPosition( pos2 );
+	if( pos2.lng > 121 ) {
+		clearInterval( pid );
+	}
+}
+
+var mapObj;
+var marker;
+var marker2;
+var pos2 =  {lat: 22.725, lng: 120.312};
+function initMap() {
+	var myLatLng = {lat: 22.726617, lng: 120.3135321};
+
+  mapObj = new google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    zoom: 17
+  });
+  
+  marker = new google.maps.Marker({
+    position: myLatLng,
+    map: mapObj,
+    title: '目前位置...'
+  });
+  
+	var contentString = "<h1>目前位置</h1><p><img src='https://pkget.com/images/mm/060.png' style='float: left;'>目前位置說明....目前位置說明....目前位置說明....目前位置說明....目前位置說明....目前位置說明....</p>";
+
+  	var infowindow = new google.maps.InfoWindow({
+    	content: contentString,
+		maxWidth: 200
+	});
+	
+	 marker.addListener('click', function() {
+		infowindow.open(mapObj, marker);
+	  });
+	  
+   marker2 = new google.maps.Marker({
+    position: pos2,
+	icon : "https://pkget.com/images/mm/060.png",
+    map: mapObj,
+    title: '第二地點...'
+  });
+  
+
+	var contentString2 = "<h1>第二地點</h1><p><img src='https://pkget.com/images/mm/060.png' style='float: right;'>目前位置說明....目前位置說明....目前位置說明....目前位置說明....目前位置說明....目前位置說明....</p>";
+
+  	var infowindow2 = new google.maps.InfoWindow({
+    	content: contentString2,
+		maxWidth: 200
+	});
+	
+	 marker2.addListener('mouseover', function() {
+		infowindow2.open(mapObj, marker2);
+	  });
+	  
+	 marker2.addListener('mouseout', function() {
+		infowindow2.close();
+	  });
+}
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlx5Dhi_D8_qVrQd9CHWHDEHTyhhSRYMA&callback=initMap"
+        async defer></script>
+  </body>
+</html>
