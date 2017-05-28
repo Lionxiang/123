@@ -14,7 +14,7 @@
         height: 100%;
       }
     </style>
-<!--<script>
+<script>
     window.onload=function(){
       if(navigator.geolocation){    //查看瀏覽器或裝置是否支援GPS
 	     alert('支援GPS');
@@ -33,7 +33,7 @@
     function geoNo( evt ) {
 	alert("GPS失敗!");
     }
-</script>-->
+</script>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
     <script>
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 22.7259888, lng: 120.3127749},
+          center: {lat: 22.7259888, lng: 120.3127749},            //進入網頁時的中心點
           zoom: 19
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
@@ -57,18 +57,37 @@
             infoWindow.setPosition(pos);
             infoWindow.setContent('Hello~小小探險家這是你現在的位置');
             map.setCenter(pos);
-			
-		    var marker = new google.maps.Marker({
+			//使用者marker icon
+			var marker = new google.maps.Marker({     
             position: pos,
+			icon : "https://lionxiang.github.io/Treasure/explorer4.png",
             map: map
             });
+	        var contentString = "<h1>目前位置</h1><p><img src='https://lionxiang.github.io/Treasure/explorer4.png' style='float: left;'>我叫維剛，我要成為冒險王!!</p>";
+  	        var infowindow = new google.maps.InfoWindow({
+    	    content: contentString,
+		    maxWidth: 210
+	        });	
+	        marker.addListener('click', function() {
+		    infowindow.open(map, marker);
+	        });
 			
-			var pos2 ={lat: 22.7259486 , lng: 120.3139087};
+			//寶藏1-START
+			var pos2 ={lat: 22.7251811 , lng: 120.3145459};            
 	        var marker2 = new google.maps.Marker({
-			icon : ,
+            icon : "https://lionxiang.github.io/Treasure/treasure.png",
             position: pos2,
             map: map
             });
+	        var contentString2 = "<h1>寶藏位置提示</h1><p><img src='https://lionxiang.github.io/Treasure/prompt1.jpg' style='float: left;'>外觀似廟又非廟，專題讓我哇哇叫，資管數學有大刀，維剛讀到想要逃。</p>";
+  	        var infowindow2 = new google.maps.InfoWindow({
+    	    content: contentString2,
+		    maxWidth: 210
+	        });	
+	        marker2.addListener('click', function() {
+		    infowindow2.open(map, marker2);
+	        });
+			//寶藏1-END
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
@@ -159,12 +178,7 @@
                 position.coords.latitude,
                 position.coords.longitude)
         );
-		//var marker = new google.maps.Marker({
-		//position: lat: evt.coords.latitude, lng: evt.coords.longitude,
-		//map: map,
-		//title: 'Hello!'
-		//});
-		}
+	}
     </script>-->
     <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtBb2wMesjlWbJBngogK4otsCXOXlr7Kk&callback=initMap">
