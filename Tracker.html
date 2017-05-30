@@ -36,7 +36,7 @@
     var lastLat;
     var lastLong;
 
-    function toRadians(degree) {
+    Number.prototype.toRadians = function() {
       return this * Math.PI / 180;
     }
 
