@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script><!---->
+<div id="message"></div>
 <head>
 <title>藏寶圖</title>
 <meta name="viewport" content="initial-scale=1.0">
@@ -17,7 +19,7 @@
 </head>
 
 <body onload="loadDemo()">                                    
-	<div id="map"></div>
+	<div id="map"></div>	
 	
 	<script type="text/javascript">     //計算距離和取得經緯度的function
     var totalDistance = 0.0;
@@ -27,8 +29,7 @@
     Number.prototype.toRadians = function() {       //傳回距離值(與眾不同-待補參考網址)
       return this * Math.PI / 180;
     }
-
-
+	
     function distance(latitude1, longitude1, latitude2, longitude2) {
       // R是地球半徑（KM）
       var R = 6371;
@@ -115,6 +116,15 @@
     }	
     </script>
 	
+	<script>
+	var x=document.getElementById("message");
+
+    var coordinates = [
+    [lastLat, lastLong],
+    ];
+
+	</script>
+	
     <script>
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -148,7 +158,7 @@
 	        });	
 	        marker.addListener('click', function() {
 		    infowindow.open(map, marker);
-	        });
+	        });			
 			}, 3000);
 			//尾
 			//寶藏1-START
