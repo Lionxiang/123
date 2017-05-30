@@ -16,8 +16,7 @@
     </style>
 </head>
 
-<body onload="loadDemo()">
-
+<body onload="loadDemo()">                                    
 	<div id="map"></div>
 	
 	<script type="text/javascript">     //計算距離和取得經緯度的function
@@ -117,7 +116,6 @@
     </script>
 	
     <script>
-
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 22.7259888, lng: 120.3127749},            //進入網頁時的中心點
@@ -126,22 +124,23 @@
         var infoWindow = new google.maps.InfoWindow({map: map});
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
+          navigator.geolocation.watchPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
             infoWindow.setPosition(pos);
             infoWindow.setContent('Hello~小小探險家這是你現在的位置');
-            map.setCenter(pos);
+            map.setCenter(pos);	
 			//使用者marker icon
 			//頭
-			setInterval(function(){
-			var marker = new google.maps.Marker({     
+			setInterval(function(){	
+			var marker = new google.maps.Marker({ 		
             position: pos,
+			draggable:true,
 			icon : "https://lionxiang.github.io/Treasure/explorer4.png",
             map: map
-            });
+            });			
 	        var contentString = "<h1>目前位置</h1><p><img src='https://lionxiang.github.io/Treasure/explorer4.png' style='float: left;'>我叫維剛，我要成為冒險王!!</p>";
   	        var infowindow = new google.maps.InfoWindow({
     	    content: contentString,
@@ -150,7 +149,7 @@
 	        marker.addListener('click', function() {
 		    infowindow.open(map, marker);
 	        });
-			},3000);
+			}, 3000);
 			//尾
 			//寶藏1-START
 			var pos2 ={lat: 22.7251811 , lng: 120.3145459};            
@@ -185,7 +184,6 @@
 	  
     </script> 
     
-	
     <p id="status">該瀏覽器不支持HTML5 Geolocation。</p>
     <h2>當前位置：</h2>
     <table border="1">
@@ -204,17 +202,6 @@
     </table>
     <h4 id="currDist">本次移動距離：0 公里</h4>
     <h4 id="totalDist">總計移動距離：0 公里</h4>
-	
-
-
-	
-	<!--<script language="javascript">
-    setInterval("self.location.reload();",10000);     //每X秒刷新網頁(暫定-再找尋更好的方式)	
-	if(){
-	clearInterval();
-	}else{	
-	}
-    </script>-->
 
     <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtBb2wMesjlWbJBngogK4otsCXOXlr7Kk&callback=initMap">
