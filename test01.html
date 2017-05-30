@@ -15,9 +15,109 @@
       }
     </style>
 </head>
+
 <body onload="loadDemo()">
+
 	<div id="map"></div>
+	
+	<script type="text/javascript">     //計算距離和取得經緯度的function
+    var totalDistance = 0.0;
+    var lastLat;
+    var lastLong;
+
+    Number.prototype.toRadians = function() {       //傳回距離值(與眾不同-待補參考網址)
+      return this * Math.PI / 180;
+    }
+
+
+    function distance(latitude1, longitude1, latitude2, longitude2) {
+      // R是地球半徑（KM）
+      var R = 6371;
+
+      var deltaLatitude = (latitude2-latitude1).toRadians();
+      var deltaLongitude = (longitude2-longitude1).toRadians();
+      latitude1 = latitude1.toRadians();
+	  latitude2 = latitude2.toRadians();
+
+      var a = Math.sin(deltaLatitude/2) *
+              Math.sin(deltaLatitude/2) +
+              Math.cos(latitude1) *
+              Math.cos(latitude2) *
+              Math.sin(deltaLongitude/2) *
+              Math.sin(deltaLongitude/2);
+
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var d = R * c;
+      return d;
+    }
+
+
+    function updateStatus(message) {
+        document.getElementById("status").innerHTML = message;
+    }
+
+    function loadDemo() {
+        if(navigator.geolocation) {
+            updateStatus("瀏覽器支持HTML5 Geolocation。");
+            navigator.geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:1000});
+        }
+    }
+
+    function updateLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+
+        document.getElementById("latitude").innerHTML = latitude;
+        document.getElementById("longitude").innerHTML = longitude;
+        document.getElementById("accuracy").innerHTML = accuracy;
+
+        // 如果accuracy的值太大，我們認為他不準確，不用它計算距離
+        if (accuracy >= 5000) {
+            updateStatus("這個數據不太準確，需要更準確的數據來計算本次移動距離。");
+            return;
+        }
+
+        // 計算移动距离
+
+        if ((lastLat != null) && (lastLong != null)) {
+            var currentDistance = distance(latitude, longitude, lastLat, lastLong);
+            document.getElementById("currDist").innerHTML =
+              "本次移動距離：" + currentDistance.toFixed(4) + " 公里";
+
+            totalDistance = totalDistance + currentDistance;
+
+            document.getElementById("totalDist").innerHTML =
+              "總計移動距離：" + totalDistance.toFixed(4) + " 公里";
+        }
+
+        lastLat = latitude;
+        lastLong = longitude;
+	
+        updateStatus("計算移動距離成功。");
+	
+    }
+    function handleLocationError(error) {
+        switch(error.code)
+        {
+        case 0:
+          updateStatus("嘗試或取您的位置信息時發生錯誤：" + error.message);
+          break;
+        case 1:
+          updateStatus("用戶拒絕了獲取位置信息請求。");
+          break;
+        case 2:
+          updateStatus("瀏覽器無法獲取您的位置信息：" + error.message);
+          break;
+        case 3:
+          updateStatus("獲取您位置信息超時。");
+          break;
+        }
+    }	
+    </script>
+	
     <script>
+
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 22.7259888, lng: 120.3127749},            //進入網頁時的中心點
@@ -35,6 +135,8 @@
             infoWindow.setContent('Hello~小小探險家這是你現在的位置');
             map.setCenter(pos);
 			//使用者marker icon
+			//頭
+			setInterval(function(){
 			var marker = new google.maps.Marker({     
             position: pos,
 			icon : "https://lionxiang.github.io/Treasure/explorer4.png",
@@ -48,7 +150,8 @@
 	        marker.addListener('click', function() {
 		    infowindow.open(map, marker);
 	        });
-			
+			},3000);
+			//尾
 			//寶藏1-START
 			var pos2 ={lat: 22.7251811 , lng: 120.3145459};            
 	        var marker2 = new google.maps.Marker({
@@ -102,101 +205,7 @@
     <h4 id="currDist">本次移動距離：0 公里</h4>
     <h4 id="totalDist">總計移動距離：0 公里</h4>
 	
-	<script type="text/javascript">
-    var totalDistance = 0.0;
-    var lastLat;
-    var lastLong;
 
-    Number.prototype.toRadians = function() {       //傳回距離值(與眾不同)
-      return this * Math.PI / 180;
-    }
-
-
-    function distance(latitude1, longitude1, latitude2, longitude2) {
-      // R是地球半徑（KM）
-      var R = 6371;
-
-      var deltaLatitude = (latitude2-latitude1).toRadians();
-      var deltaLongitude = (longitude2-longitude1).toRadians();
-      latitude1 = latitude1.toRadians();
-	  latitude2 = latitude2.toRadians();
-
-      var a = Math.sin(deltaLatitude/2) *
-              Math.sin(deltaLatitude/2) +
-              Math.cos(latitude1) *
-              Math.cos(latitude2) *
-              Math.sin(deltaLongitude/2) *
-              Math.sin(deltaLongitude/2);
-
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      var d = R * c;
-      return d;
-    }
-
-
-    function updateStatus(message) {
-        document.getElementById("status").innerHTML = message;
-    }
-
-    function loadDemo() {
-        if(navigator.geolocation) {
-            updateStatus("浏览器支持HTML5 Geolocation。");
-            navigator.geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:1000});
-        }
-    }
-
-    function updateLocation(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var accuracy = position.coords.accuracy;
-
-        document.getElementById("latitude").innerHTML = latitude;
-        document.getElementById("longitude").innerHTML = longitude;
-        document.getElementById("accuracy").innerHTML = accuracy;
-
-        // 如果accuracy的值太大，我們認為他不準確，不用它计算距離
-        if (accuracy >= 5000) {
-            updateStatus("這個數據不太準確，需要更準確的數據來計算本次移動距離。");
-            return;
-        }
-
-        // 计算移动距离
-
-        if ((lastLat != null) && (lastLong != null)) {
-            var currentDistance = distance(latitude, longitude, lastLat, lastLong);
-            document.getElementById("currDist").innerHTML =
-              "本次移動距離：" + currentDistance.toFixed(4) + " 公里";
-
-            totalDistance = totalDistance + currentDistance;
-
-            document.getElementById("totalDist").innerHTML =
-              "總計移動距離：" + totalDistance.toFixed(4) + " 公里";
-        }
-
-        lastLat = latitude;
-        lastLong = longitude;
-	
-        updateStatus("計算移動距離成功。");
-	
-    }
-    function handleLocationError(error) {
-        switch(error.code)
-        {
-        case 0:
-          updateStatus("嘗試或取您的位置信息時發生錯誤：" + error.message);
-          break;
-        case 1:
-          updateStatus("用戶拒絕了獲取位置信息請求。");
-          break;
-        case 2:
-          updateStatus("瀏覽器無法獲取您的位置信息：" + error.message);
-          break;
-        case 3:
-          updateStatus("獲取您位置信息超時。");
-          break;
-        }
-    }	
-    </script>
 
 	
 	<!--<script language="javascript">
