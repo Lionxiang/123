@@ -69,7 +69,7 @@
 
     function loadDemo() {
         if(navigator.geolocation) {
-            updateStatus("浏览器支持HTML5 Geolocation。");
+            updateStatus("瀏覽器支持HTML5 Geolocation。");
             navigator.geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:1000});
         }
     }
