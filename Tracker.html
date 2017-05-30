@@ -47,8 +47,8 @@
 
       var deltaLatitude = (latitude2-latitude1).toRadians();
       var deltaLongitude = (longitude2-longitude1).toRadians();
-      latitude1 = (latitude1).toRadians();
-	  latitude2 = (latitude2).toRadians();
+      latitude1 = latitude1.toRadians();
+	  latitude2 = latitude2.toRadians();
 
       var a = Math.sin(deltaLatitude/2) *
               Math.sin(deltaLatitude/2) +
