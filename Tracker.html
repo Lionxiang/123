@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>HTML5 Geolocation距离跟踪器</title>
+    <title>HTML5 Geolocation距離跟蹤器</title>
 </head>
 
 <body onload="loadDemo()">
 
-<h1>HTML5 Geolocation距离跟踪器</h1>
+<h1>HTML5 Geolocation距離跟蹤器</h1>
 
-<p id="status">该浏览器不支持HTML5 Geolocation。</p>
+<p id="status">該瀏覽器不支持HTML5 Geolocation。</p>
 
-<h2>当前位置：</h2>
+<h2>當前位置：</h2>
 <table border="1">
 <tr>
-<td width="40" scope="col">纬度</th>
+<td width="40" scope="col">緯度</th>
 <td width="114" id="latitude">?</td>
 </tr>
 <tr>
-<td>经度</td>
+<td>經度</td>
 <td id="longitude">?</td>
 </tr>
 <tr>
-<td>准确度</td>
+<td>準確度</td>
 <td id="accuracy">?</td>
 </tr>
 </table>
 
-<h4 id="currDist">本次移动距离：0 千米</h4>
-<h4 id="totalDist">总计移动距离：0 千米</h4>
+<h4 id="currDist">本次移動距離：0 公里</h4>
+<h4 id="totalDist">總計移動距離：0 公里</h4>
 
 
 <script type="text/javascript">
@@ -42,7 +42,7 @@
 
 
     function distance(latitude1, longitude1, latitude2, longitude2) {
-      // R是地球半径（KM）
+      // R是地球半徑（KM）
       var R = 6371;
 
       var deltaLatitude = (latitude2-latitude1).toRadians();
@@ -83,9 +83,9 @@
         document.getElementById("longitude").innerHTML = longitude;
         document.getElementById("accuracy").innerHTML = accuracy;
 
-        // 如果accuracy的值太大，我们认为它不准确，不用它计算距离
+        // 如果accuracy的值太大，我們認為他不準確，不用它计算距離
         if (accuracy >= 5000) {
-            updateStatus("这个数据太不靠谱，需要更准确的数据来计算本次移动距离。");
+            updateStatus("這個數據不太準確，需要更準確的數據來計算本次移動距離。");
             return;
         }
 
@@ -94,34 +94,34 @@
         if ((lastLat != null) && (lastLong != null)) {
             var currentDistance = distance(latitude, longitude, lastLat, lastLong);
             document.getElementById("currDist").innerHTML =
-              "本次移动距离：" + currentDistance.toFixed(4) + " 千米";
+              "本次移動距離：" + currentDistance.toFixed(4) + " 公里";
 
             totalDistance = totalDistance + currentDistance;
 
             document.getElementById("totalDist").innerHTML =
-              "总计移动距离：" + totalDistance.toFixed(4) + " 千米";
+              "總計移動距離：" + totalDistance.toFixed(4) + " 公里";
         }
 
         lastLat = latitude;
         lastLong = longitude;
 	
-        updateStatus("计算移动距离成功。");
+        updateStatus("計算移動距離成功。");
 	
     }
     function handleLocationError(error) {
         switch(error.code)
         {
         case 0:
-          updateStatus("尝试获取您的位置信息时发生错误：" + error.message);
+          updateStatus("嘗試或取您的位置信息時發生錯誤：" + error.message);
           break;
         case 1:
-          updateStatus("用户拒绝了获取位置信息请求。");
+          updateStatus("用戶拒絕了獲取位置信息請求。");
           break;
         case 2:
-          updateStatus("浏览器无法获取您的位置信息：" + error.message);
+          updateStatus("瀏覽器無法獲取您的位置信息：" + error.message);
           break;
         case 3:
-          updateStatus("获取您位置信息超时。");
+          updateStatus("獲取您位置信息超時。");
           break;
         }
     }
