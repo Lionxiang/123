@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>HTML5 Geolocation距离跟踪器</title>
@@ -45,10 +45,10 @@
       // R是地球半径（KM）
       var R = 6371;
 
-      var deltaLatitude = toRadians(latitude2-latitude1);
-      var deltaLongitude = toRadians(longitude2-longitude1);
-      latitude1 = toRadians(latitude1);
-	  latitude2 = toRadians(latitude2);
+      var deltaLatitude = (latitude2-latitude1).toRadians();
+      var deltaLongitude = (longitude2-longitude1).toRadians();
+      latitude1 = (latitude1).toRadians();
+	  latitude2 = (latitude2).toRadians();
 
       var a = Math.sin(deltaLatitude/2) *
               Math.sin(deltaLatitude/2) +
@@ -70,7 +70,7 @@
     function loadDemo() {
         if(navigator.geolocation) {
             updateStatus("浏览器支持HTML5 Geolocation。");
-            navigator.geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:20000});
+            navigator.geolocation.watchPosition(updateLocation, handleLocationError, {maximumAge:1000});
         }
     }
 
@@ -104,10 +104,10 @@
 
         lastLat = latitude;
         lastLong = longitude;
-
+	
         updateStatus("计算移动距离成功。");
+	
     }
-
     function handleLocationError(error) {
         switch(error.code)
         {
