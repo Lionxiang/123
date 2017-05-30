@@ -96,10 +96,10 @@
             document.getElementById("currDist").innerHTML =
               "本次移动距离：" + currentDistance.toFixed(4) + " 千米";
 
-            totalDistance += currentDistance;
+            totalDistance = totalDistance + currentDistance;
 
             document.getElementById("totalDist").innerHTML =
-              "总计移动距离：" + currentDistance.toFixed(4) + " 千米";
+              "总计移动距离：" + totalDistance.toFixed(4) + " 千米";
         }
 
         lastLat = latitude;
