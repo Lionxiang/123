@@ -84,7 +84,7 @@
         document.getElementById("accuracy").innerHTML = accuracy;
 
         // 如果accuracy的值太大，我们认为它不准确，不用它计算距离
-        if (accuracy >= 500) {
+        if (accuracy >= 5000) {
             updateStatus("这个数据太不靠谱，需要更准确的数据来计算本次移动距离。");
             return;
         }
