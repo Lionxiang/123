@@ -26,7 +26,11 @@ session_start();
     </style>
 </head>
 
-<body onload="loadDemo()">                      
+<body onload="loadDemo()"> 
+	<form method="POST" name="form1" id="form1" action="updateCoin.php"> 
+		  <input type="hidden" name="tId" value="t01">
+		  <button type="submit" onclick="update(tId)" class="button">updateCoinFortarea</button>
+	</form>
 	<div id="map"></div>	
 	
 	<script type="text/javascript">     //計算距離和取得經緯度的function
@@ -210,10 +214,7 @@ session_start();
       }
     </script> 
 <script>
-	<form method="POST" name="form1" id="form1" action="updateCoin.php"> 
-		  <input type="hidden" name="tId" value="t01">
-		  <button type="submit" onclick="update(tId)" class="button">updateCoinFortarea</button>
-	</form>
+	
 	
     function update(tId){
 	window.event.returnValue=false;  //停止送出表單
