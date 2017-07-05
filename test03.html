@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+<?php
+include_once 'dbconfig.php';
+$db_link = mysqli_connect("120.119.164.164:8082", "root", "123", "db1031241216") or die("無法建立連接");
+mysqli_query($db_link,"SET CHARACTER SET UTF8");
+session_start();
+?>	
 <div id="message"></div>
 <head>
 <title>藏寶圖</title>
