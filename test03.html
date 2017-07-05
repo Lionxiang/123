@@ -208,9 +208,24 @@ session_start();
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
       }
-	  
+    <form method="POST" name="form1" id="form1" action="updateCoin.php"> 
+		  <input type="hidden" name="tId" value="t01">
+		  <button type="submit" onclick="update(tId)" class="button">updateCoinFortarea</button>
+	  </form>
     </script> 
-    
+    function update(tId){
+	window.event.returnValue=false;  //停止送出表單
+	swal({
+	  title:"尋獲寶藏，取得金幣。",
+	  text:"",
+	  showCancelButton: false,
+	  closeOnConfirm: false
+	},
+	function(){
+	  document.cookie="tId"+tId;
+	  document.getElementById("form1").submit();
+	});
+  }
     <p id="status">該瀏覽器不支持HTML5 Geolocation。</p>
     <h2>當前位置：</h2>
     <table border="1">
