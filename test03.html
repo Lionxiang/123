@@ -20,7 +20,7 @@ session_start();
 　      overflow-x: hidden;
       }
       #map {
-        height: 100%;
+        height: 50%;
       }
 	  
     </style>
@@ -209,6 +209,12 @@ session_start();
                               'Error: Your browser doesn\'t support geolocation.');
       }
     </script> 
+<script>
+	<form method="POST" name="form1" id="form1" action="updateCoin.php"> 
+		  <input type="hidden" name="tId" value="t01">
+		  <button type="submit" onclick="update(tId)" class="button">updateCoinFortarea</button>
+	</form>
+	</script>
     function update(tId){
 	window.event.returnValue=false;  //停止送出表單
 	swal({
