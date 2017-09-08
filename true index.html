@@ -124,7 +124,7 @@
           zoom: 15
         });
 					
-        var infoWindow = new google.maps.InfoWindow({map: map});
+        //var infoWindow = new google.maps.InfoWindow({map: map});
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.watchPosition(function(position) {
@@ -132,7 +132,6 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
             //infoWindow.setPosition(pos);
             //infoWindow.setContent('Hello~小小探險家這是你現在的位置');
             map.setCenter(pos);	
@@ -141,18 +140,18 @@
 			setInterval(function(){
 				//alert("3");
 				marker.setMap(null);
-			},3000);
+			},15000);
 			var marker = new google.maps.Marker({ 		
             position: pos,
 			draggable:false,
 			icon : "https://lionxiang.github.io/Treasure/explorer4.png",
             map: map
             });			
-	        var contentString = "<h1>目前位置</h1><p><img src='https://lionxiang.github.io/Treasure/explorer4.png' style='float: left; '>&nbsp&nbsp我叫維剛，我要成為冒險王!!</p>";  //&nbsp空格 一個表示一格
-  	        var infowindow = new google.maps.InfoWindow({
-    	    content: contentString,
-		    maxWidth: 210
-	        });	
+	        //var contentString = "<h1>目前位置</h1><p><img src='https://lionxiang.github.io/Treasure/explorer4.png' style='float: left; '>&nbsp&nbsp我叫維剛，我要成為冒險王!!</p>";  //&nbsp空格 一個表示一格
+  	        //var infowindow = new google.maps.InfoWindow({
+    	    //content: contentString,
+		    //maxWidth: 210
+	        //});	
 	        marker.addListener('click', function() {
 		    infowindow.open(map, marker);
 	        });			
@@ -326,7 +325,6 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
-
       }
 	  	
 	  
