@@ -33,7 +33,7 @@
           center: {lat: 22.7259888, lng: 120.3127749},            //進入網頁時的中心點
           zoom: 15
         });
-					
+		a="https://lionxiang.github.io/Treasure/treasure2.png";			
         //var infoWindow = new google.maps.InfoWindow({map: map});
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -47,10 +47,8 @@
             map.setCenter(pos);	
 			//使用者marker icon
 			//頭                           
-			setInterval(function(){
-				//alert("3");
-				marker.setMap(null);
-			},5000);
+
+					
 			var marker = new google.maps.Marker({ 		
             position: pos,
 			draggable:false,
@@ -64,12 +62,16 @@
 	        //});	
 	        marker.addListener('click', function() {
 		    infowindow.open(map, marker);
-	        });			
+	        });	
+			setInterval(function(){
+				//alert("3");
+				marker.setMap(null);
+			},5000);			
 			//尾
 			//寶藏1-START
 			var pos2 ={lat: 22.7251811 , lng: 120.3145459};     //海科校門口       
 	        var marker2 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos2,
             map: map
             });
@@ -85,7 +87,7 @@
 			//寶藏2-START
 			var pos3 ={lat: 22.7284006 , lng: 120.3198617};      //青田街        
 	        var marker3 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos3,
             map: map
             });
@@ -101,7 +103,7 @@
 			//寶藏3-START
 			var pos4 ={lat: 22.7238047 , lng: 120.3166884};      //後勁公園       
 	        var marker4 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos4,
             map: map
             });
@@ -117,7 +119,7 @@
 			//寶藏4-START
 			var pos5 ={lat: 22.7252742 , lng: 120.3149966};      //海科大信樓      
 	        var marker5 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos5,
             map: map
             });
@@ -133,7 +135,7 @@
 			//寶藏5-START
 			var pos6 ={lat: 22.7255471 , lng: 120.3131531};        //厚生樓   
 	        var marker6 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos6,
             map: map
             });
@@ -149,7 +151,7 @@
 			//寶藏6-START
 			var pos7 ={lat: 22.7276603 , lng: 120.3139573};         //惠海樓    
 	        var marker7 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos7,
             map: map
             });
@@ -165,7 +167,7 @@
 			//寶藏7-START
 			var pos8 ={lat: 22.7238134 , lng: 120.3124775};        //泰式料理那條    
 	        var marker8 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos8,
             map: map
             });
@@ -181,7 +183,7 @@
 			//寶藏8-START
 			var pos9 ={lat: 22.7260994 , lng: 120.3175415};           //籃球場
 	        var marker9 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos9,
             map: map
             });
@@ -197,7 +199,7 @@
 			//寶藏9-START
 			var pos10 ={lat: 22.7302952 , lng: 120.3174557};       //監理所     
 	        var marker10 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos10,
             map: map
             });
@@ -213,7 +215,7 @@
 			//寶藏10-START
 			var pos11 ={lat: 22.7328996 , lng: 120.3111379};            //都會公園
 	        var marker11 = new google.maps.Marker({
-            icon : "https://lionxiang.github.io/Treasure/treasure2.png",
+            icon : a,
             position: pos11,
             map: map
             });
@@ -238,12 +240,12 @@
       }
 	  	
 	  
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
+      //function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      //  infoWindow.setPosition(pos);
+      //  infoWindow.setContent(browserHasGeolocation ?
+      //                        'Error: The Geolocation service failed.' :
+      //                        'Error: Your browser doesn\'t support geolocation.');
+      //}
 	  
     </script> 
 
