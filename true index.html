@@ -41,8 +41,10 @@
         if (navigator.geolocation) {
           navigator.geolocation.watchPosition(function(position) {
             var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
+              //lat: position.coords.latitude,
+              //lng: position.coords.longitude
+		lat: 22.43258,
+		lng: 120.5188025
             };
             //infoWindow.setPosition(pos);
             //infoWindow.setContent('Hello~小小探險家這是你現在的位置');
